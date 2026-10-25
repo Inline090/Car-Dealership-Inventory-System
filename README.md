@@ -40,6 +40,7 @@ This starts PostgreSQL on `localhost:5432` and creates two databases: `car_deale
 cd backend
 npm install
 cp .env.example .env
+npm run db:migrate
 npm run dev
 ```
 
@@ -84,11 +85,15 @@ The application is available at `http://localhost:5173`. Vite proxies `/api` req
 
 ## API
 
-| Method | Endpoint      | Description             |
-| ------ | ------------- | ----------------------- |
-| GET    | `/api/health` | Service liveness check  |
+| Method | Endpoint             | Access        | Description                              |
+| ------ | -------------------- | ------------- | ---------------------------------------- |
+| GET    | `/api/health`        | Public        | Service liveness check                   |
+| POST   | `/api/auth/register` | Public        | Create a customer account                |
+| POST   | `/api/auth/login`    | Public        | Exchange credentials for an access token |
+| GET    | `/api/auth/me`       | Authenticated | Return the current user                  |
+| Any    | `/api/vehicles/*`    | Authenticated | Vehicle inventory (in progress)          |
 
-Additional endpoints are added as features land.
+Protected endpoints expect `Authorization: Bearer <token>`. Additional vehicle routes are added as features land.
 
 ## My AI Usage
 
